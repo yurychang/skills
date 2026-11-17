@@ -1,0 +1,10 @@
+# 協作指引
+
+- 使用繁體中文撰寫使用者文件與說明；程式識別字遵循原有語言慣例。
+- 正式技能放在 `skills/<skill-name>/SKILL.md`，範本放在 `templates/`。
+- `name` 必須與技能目錄一致；`description` 應明確說明用途與適用情境。
+- 每個技能保持獨立，只在有實際需要時加入腳本、參考文件、資產或產品專屬 metadata。
+- 保留技能正常的自動探索行為；只有使用者明確要求時才停用自動選用。
+- 提交前執行 `python scripts/validate_skills.py` 與 `python -m unittest discover -s tests -v`。
+- 驗證工具以安全 YAML 解析檢查格式，不執行技能內文或任何技能腳本；格式檢查與實際行為驗證分別記錄。
+- 這是公開 repo；僅提交與技能直接相關且可公開的內容。
