@@ -1,0 +1,3 @@
+interface:
+  display_name: "UI 介面優化"
+  short_description: "優化既有介面的版面與互動，保留原有功能，並以實際畫面與操作驗證"

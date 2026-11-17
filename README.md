@@ -4,8 +4,8 @@
 
 由 [@yurychang](https://github.com/yurychang) 維護的個人 AI Agent 技能集合，將可重複使用的工作方法整理成獨立的 `SKILL.md`、腳本與參考資料，方便持續改進與分享。
 
-> **目前狀態：專案架構已完成，正式技能為 0 個。**
-> 現階段提供技能範本、格式驗證工具與自動檢查；`templates/` 的內容是開發起點，尚無已發布的正式技能可安裝。
+> **目前提供 1 個正式技能：[optimize-ui](skills/optimize-ui/SKILL.md)。**
+> 改善既有網頁或桌面 App 的 UI／UX，沿用原有技術與設計系統，提供視覺示意並以實際畫面與操作驗證。
 
 **[技能清單](#技能清單) · [安裝與使用](#安裝與使用) · [新增技能](#新增技能) · [格式規範](#格式規範) · [驗證與測試](#驗證與測試) · [貢獻方式](#貢獻方式)**
 
@@ -15,7 +15,7 @@ Skill 是一個包含操作指引與必要資源的目錄，讓支援技能的 A
 
 | 內容 | 用途 | 入口 |
 | --- | --- | --- |
-| 正式技能 | 可獨立使用的工作指引與資源；目前尚未加入 | [`skills/`](skills/) |
+| 正式技能 | 可獨立使用的工作指引與資源，目前提供 `optimize-ui` | [`skills/`](skills/) |
 | 技能範本 | 建立新技能時的起點 | [`SKILL.md`](templates/skill-template/SKILL.md) |
 | 格式驗證 | 檢查技能名稱、描述與必要結構 | [`validate_skills.py`](scripts/validate_skills.py) |
 | 自動檢查 | 推送至 `main`、提出 PR 或手動觸發時執行驗證與工具測試 | [GitHub Actions](https://github.com/yurychang/skills/actions/workflows/validate.yml) |
@@ -23,21 +23,22 @@ Skill 是一個包含操作指引與必要資源的目錄，讓支援技能的 A
 
 ## 技能清單
 
-目前 [`skills/`](skills/) 尚無正式技能，歡迎從[範本](templates/skill-template/SKILL.md)建立第一個技能。
+| 技能 | 用途 | 適用情境 |
+| --- | --- | --- |
+| [`optimize-ui`](skills/optimize-ui/SKILL.md) | 審查並改善既有介面的排版、元件樣式、資訊層級與互動可用性，產出示意圖並驗證修改後的實際畫面 | UI polish、畫面太亂、設定頁整理、表單操作不順、動態狀態與版面位移檢查 |
 
-新增正式技能時，此處會列出名稱、用途、適用情境與目錄連結。每個技能的依賴、操作方式及驗證限制，以該目錄的 `SKILL.md` 為準。
+每個技能的依賴、操作方式及驗證限制，以該目錄的 `SKILL.md` 為準。新增技能可從[範本](templates/skill-template/SKILL.md)開始。
 
 ## 安裝與使用
 
-**目前尚無正式技能可安裝。** 下列指令說明日後加入技能後的使用方式；`my-skill` 是示例名稱，必須替換成技能清單中實際存在的名稱。
+目前可安裝 `optimize-ui`。請在需要使用它的專案目錄執行以下指令。
 
 ### 使用 Skills CLI
 
 依 [Skills CLI 官方說明](https://github.com/vercel-labs/skills#install-a-skill)，需先安裝 Node.js 22.20 以上版本。在要使用技能的專案目錄執行：
 
 ```sh
-# 示例：待 my-skill 成為正式技能並推送至此 repo 後使用
-npx skills add yurychang/skills --skill my-skill
+npx skills add yurychang/skills --skill optimize-ui
 ```
 
 依 CLI 提示選擇目標 Agent；預設安裝到目前專案。若要跨專案使用，可在上述指令加上 `-g`。CLI 會處理不同 Agent 的安裝位置，完整選項請參考其官方文件。
@@ -49,10 +50,19 @@ npx skills add yurychang/skills --skill my-skill
 安裝後可在 Agent 中明確提出請求，例如：
 
 ```text
-請使用 my-skill，依照它的指引處理這份資料，並說明驗證結果。
+請使用 optimize-ui 優化這個專案的設定頁。
+沿用現有元件與設計系統，改善分組、資訊層級與操作回饋，保留原有功能及未保存草稿。
+提供視覺示意圖，完成實作後檢查實際畫面、相關操作與動態狀態的版面位移。
 ```
 
 各 Agent 的載入、重新整理與呼叫方式，依該產品文件為準。技能格式相同不代表工具權限與執行環境相同；目前本 repo 尚未完成任何 Agent 的實際安裝或行為驗證。
+
+### optimize-ui 的使用條件與成果
+
+- 審查可從使用者描述、截圖、程式碼或可操作畫面開始；落實修改時需有可編輯的目標專案。
+- 技能不綁定特定前端或原生框架，實作沿用目標專案的技術、元件與設計 token。
+- 視覺優化需產出並展示示意圖，且與實際產品驗證證據分開。實際畫面與互動驗證需有可用且獲允許的瀏覽器或原生介面工具；遵守目標專案既有的測試限制。
+- 交付包含具體改善、對應情境、示意圖、實際驗證結果與未驗證範圍。只要求審查時提供問題與改法；要求實作且已有專案時，依授權範圍完成修改。
 
 ## 專案結構
 
@@ -61,7 +71,9 @@ skills/
 ├── .github/
 │   └── workflows/validate.yml      # GitHub Actions 自動檢查
 ├── skills/                        # 正式技能，每個技能一個目錄
-│   └── .gitkeep                    # 目前為空目錄保留檔
+│   └── optimize-ui/
+│       ├── SKILL.md                # UI／UX 優化指引
+│       └── agents/openai.yaml      # 技能介面 metadata
 ├── templates/
 │   └── skill-template/
 │       └── SKILL.md                # 新技能範本
@@ -213,9 +225,9 @@ macOS／Linux：
 
 ## 常見問題
 
-**為什麼目前找不到可安裝的技能？**
+**如何確認選到正式技能而不是範本？**
 
-正式技能目錄仍為空。`templates/skill-template/` 僅供開發使用；先建立並發布實際技能後，才會加入上方清單。
+以[技能清單](#技能清單)為準，安裝時指定 `--skill optimize-ui`。`templates/skill-template/` 僅供建立新技能使用，不列為正式技能。
 
 **只想閱讀技能，需要安裝 Python 或 Node.js 嗎？**
 
