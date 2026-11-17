@@ -8,3 +8,4 @@
 - 提交前執行 `python scripts/validate_skills.py` 與 `python -m unittest discover -s tests -v`。
 - 驗證工具以安全 YAML 解析檢查格式，不執行技能內文或任何技能腳本；格式檢查與實際行為驗證分別記錄。
 - 這是公開 repo；僅提交與技能直接相關且可公開的內容。
+- README 首屏應呈現專案用途、目前狀態與主要入口；新增或移除技能時同步更新技能清單、數量與安裝示例，清楚區分正式技能與範本。
